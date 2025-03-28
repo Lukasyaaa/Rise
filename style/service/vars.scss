@@ -1,0 +1,22 @@
+$lightGrayBlue: #555C68;
+$grayBlue: #636770;
+$darkestBlue: #101C26;
+$darkBlue: #24272E;
+
+$yellow: #F0E714;
+$orange: #F37825;
+
+$darkGray: #B3B3B3;
+$gray: #BAB9B9;
+$lightGray: #828282;
+$white: #F3F4F6;
+
+@function toRem($px){
+    @return $px / 16 * 1rem;
+}
+@function toEm($ch, $pr){
+    @return $ch / $pr * 1em;
+}
+@function toPercent($ch, $pr){
+    @return $ch / $pr * 100%;
+}

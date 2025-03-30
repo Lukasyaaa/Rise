@@ -8,7 +8,31 @@
     <title>Rise</title>
 </head>
 <body>
-    <span class="_icon-arrow_right"></span>
+    <header class="header">
+        <div class="container">
+            <picture class="header__logo">
+                <img src="./assets/img/logo.svg" alt="Logotype">
+            </picture>
+            <nav class="header__menu menu">
+                <ul class="menu__list">
+                    <li class="menu__link _current"><span>Home</span></li>
+                    <li class="menu__link"><a href="#">Project</a></li>
+                    <li class="menu__link"><a href="#">About</a></li>
+                    <li class="menu__link"><a href="#">Blog</a></li>
+                    <li class="menu__link"><a href="#">Contact</a></li>
+                </ul>
+                <div class="menu__authorization">
+                    <button class="menu__sign-in" type="button">Sign in</button>
+                    <button class="menu__sign-up" type="button">Sign up</button>
+                </div>
+            </nav>
+            <div class="header__authorization">
+                <button class="header__sign-in button_gray" type="button">Sign in</button>
+                <button class="header__sign-up button_yellow" type="button">Sign up</button>
+            </div>
+            <button class="header__burger burger"><span></span></button>
+        </div>
+    </header>
     <script src="./script.js"></script>
 </body>
 </html>

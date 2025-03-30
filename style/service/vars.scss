@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $lightGrayBlue: #555C68;
 $grayBlue: #636770;
 $darkestBlue: #101C26;
@@ -9,14 +11,22 @@ $orange: #F37825;
 $darkGray: #B3B3B3;
 $gray: #BAB9B9;
 $lightGray: #828282;
+$lightestGray: #CECECE;
 $white: #F3F4F6;
 
+$container: 1280;
+$containerPaddings: 15;
+$containerPadding: $container + $containerPaddings*2;
+
+@function toPixel($px){
+    @return $px * 1px;
+}
 @function toRem($px){
-    @return $px / 16 * 1rem;
+    @return math.div($px, 16) * 1rem;
 }
 @function toEm($ch, $pr){
-    @return $ch / $pr * 1em;
+    @return math.div($ch, $pr) * 1em;
 }
 @function toPercent($ch, $pr){
-    @return $ch / $pr * 100%;
+    @return math.div($ch, $pr) * 100%;
 }

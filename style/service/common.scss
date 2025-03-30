@@ -1,0 +1,57 @@
+@use "./vars.scss" as vars;
+
+.container{
+    max-width: vars.toRem(vars.$containerPadding);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.button_yellow{
+    background: vars.$yellow;
+
+    color: vars.$darkestBlue;
+    font-weight: 500;
+
+    transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s text-shadow,
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s box-shadow;
+}
+.button_yellow:focus{
+    box-shadow: inset 0 0 15px vars.$darkestBlue;
+    text-shadow: 0 0 10px vars.$darkestBlue;
+}
+@media (any-hover: hover) {
+    .button_yellow:hover{
+        box-shadow: inset 0 0 15px vars.$darkestBlue;
+        text-shadow: 0 0 10px vars.$darkestBlue;
+    }
+}
+.button_gray{
+    border: vars.toRem(1) solid vars.$lightestGray;
+
+    color: vars.$lightestGray;
+    font-weight: 500;
+
+    transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s border-color,
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s color,
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s background-color;
+}
+.button_gray:focus{
+    border-color: #fff;
+    background-color: #fff;
+    color: vars.$darkestBlue;
+}
+@media (any-hover: hover) {
+    .button_gray:hover{
+        border-color: #fff;
+        background-color: #fff;
+        color: vars.$darkestBlue;
+    }
+}
+.button_black{
+    background-color: vars.$darkBlue;
+
+    color: vars.$yellow;
+    font-weight: 500;
+}

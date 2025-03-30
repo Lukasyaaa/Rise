@@ -1,0 +1,31 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+body, ul{
+    margin: 0;
+}
+ul, button{
+    padding: unset;
+}
+a{
+    display: inline-block;
+    text-decoration: unset;
+    color: unset;
+}
+button:not(:disabled){
+    cursor: pointer;
+}
+button{
+    text-align: center;
+    background-color: unset;
+    border: unset;
+}
+ul{
+    list-style: none;
+}
+img{
+    display: block;
+}
+a:focus, button:focus{
+    outline: none;
+}

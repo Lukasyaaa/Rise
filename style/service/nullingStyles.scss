@@ -1,14 +1,16 @@
 *,*::after,*::before{
     box-sizing: border-box;
 }
-body, ul{
+body, ul, h1, h4, figure, dl, dd{
     margin: 0;
 }
 ul, button{
     padding: unset;
 }
-a{
+picture, a, span{
     display: inline-block;
+}
+a{
     text-decoration: unset;
     color: unset;
 }
@@ -28,4 +30,7 @@ img{
 }
 a:focus, button:focus{
     outline: none;
+}
+strong{
+    font-weight: unset;
 }

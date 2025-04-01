@@ -1,7 +1,19 @@
 @use "./service/vars.scss" as vars;
 
 .header{
-    background-color: vars.$darkestBlue;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    transition: box-shadow 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    background-color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    &._scroll{
+        box-shadow: 0 0 25px #000;
+        background-color: vars.$darkestBlue;
+    }
+
     @media (min-width: vars.toEm(769, 16)) or (max-width: vars.toEm(480, 16)) {
         .container{
             justify-content: space-between;
@@ -13,7 +25,7 @@
         display: flex;
         align-items: center;
         
-        min-height: vars.toRem(121);
+        min-height: vars.toRem(122);
         padding-top: vars.toRem(10);
         padding-bottom: vars.toRem(10);
     }
@@ -31,25 +43,31 @@
 
                 content: "";
                 position: absolute;
-                z-index: 2;
-                left: 0;
+                z-index: 3;
+                right: -100%;
                 top: 0;
 
                 width: 100%;
                 height: 100%;
+
+                
+                transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s right;
             }
+        }
+        &._active .container::after{
+            right: 0;
         }
     }
     @media (max-width: vars.toEm(768, 16)) and (min-width: vars.toEm(481, 16)) {
         .container > *:not(.header__menu){
             position: relative;
-            z-index: 3;
+            z-index: 4;
         }
     }
     @media (max-width: vars.toEm(480, 16)) {
         .container > *:not(.header__menu):not(.header__authorization){
             position: relative;
-            z-index: 3;
+            z-index: 4;
         }
     }
 
@@ -83,7 +101,7 @@
         &__menu{
             background-color: rgba($color: vars.$yellow, $alpha: 0.9);
             position: fixed;
-            z-index: 1;
+            z-index: 2;
             right: -100%;
             top: 0;
             overflow-y: scroll;

@@ -10,11 +10,27 @@ window.onload = () => {
     
     const header = document.querySelector(".header");
     if(header){
+        /*Добавляем возможность показа/cкрытия Меню при нажатии на Бургер*/
         const burger = document.querySelector(".burger");
         if(burger){
             burger.addEventListener("click", () => {
                 header.classList.toggle("_active");
             });
+        }
+
+        window.addEventListener("scroll", () => {
+            if(window.scrollY !== 0){
+                header.classList.add("_scroll");
+            } else {
+                header.classList.remove("_scroll");
+            }
+        });
+
+        /*Добавляем Марджин для Секции Интро, равный Высоте Хедера*/
+        const introSection = document.querySelector(".intro");
+        if(introSection){
+            introSection.style.paddingTop = 
+            ((header.offsetHeight + parseFloat(getComputedStyle(introSection).paddingTop)) / 16) + "rem";
         }
     }
 
@@ -26,6 +42,7 @@ window.onload = () => {
         containerWidth = container.getBoundingClientRect().width;
         isSmallerEqual992px = parseFloat(getComputedStyle(container).minHeight) === 80;
 
+        /*Грамотно Позиционируем Контейнер Линков по Центру Страницы*/
         if(menu && menuInner){
             isSmallerEqual768px = getComputedStyle(menu).position === "fixed";
             isSmallerEqual480px = parseFloat(getComputedStyle(menu).paddingTop) === 104;
@@ -45,7 +62,6 @@ window.onload = () => {
                 const windowMinusMenuInner = (window.innerWidth - menuInnerWidth) / 2;
                 const menuInnerLeft = windowMinusMenuInner - (pageMinusContainer) - containerPaddingLeft - containerPaddingRight - leftContentWidth;
                 const menuInnerRight = windowMinusMenuInner - (pageMinusContainer) - containerPaddingLeft - containerPaddingRight - rightContentWidth;
-                console.log(menuInnerLeft, menuInnerRight);
 
                 let neededPadding = 0;
                 let flexPosition;
@@ -60,37 +76,28 @@ window.onload = () => {
                 }
 
                 if(neededPadding > 0){
-                    menuInner.style.minWidth = (menuInnerWidth + neededPadding) + "px";
+                    menuInner.style.minWidth = ((menuInnerWidth + neededPadding) / 16) + "rem";
                     menu.style.justifyContent = flexPosition;
                 } else{
                     menu.classList.add("_not-centered");
                 }
-
-                console.log(menuInner.getBoundingClientRect());
             }
         }
     }
 
+    /*Отслеживаем События Наведения и Фокусировки, для Добавления Служебного Класса
+    Добавляем Возможность Показа Меню при Фокусировке на Первом Линке
+    Если Ширина Экрана больше 480, то Добавляем Возможность Исчезновения Меню, при Конце Фокусировке на Последнем Линке*/
     const menuLinks = document.querySelectorAll(".menu__link a");
     const menuLinksParents = document.querySelectorAll(".menu__link:not(._current)");
     if(menuLinks && menuLinksParents && menuInner){
         isSmallerEqual768px = getComputedStyle(menuLinks[0]).color !== "rgb(186, 185, 185)";
-
-        const addEventListeners = (el, i) => {
-            el.addEventListener("mouseenter", () => handleInteract(i));
-            el.addEventListener("focus", () => handleInteract(i));
-            el.addEventListener("mouseleave", () => {
-                if(el !== document.activeElement) handleEndInteract(el, i)
-            });
-            el.addEventListener("blur", () => handleEndInteract(el, i))
-        }
 
         const handleInteract = (i) => {
             menuLinksParents[i].classList.add("_intrct");
             menuInner.classList.add("_hide-active");
         };
         
-        addEventListeners(menuLinks[0], 0);
         let handleEndInteract;
         if(isSmallerEqual768px){
             handleEndInteract =  (menuLink, i) => {
@@ -101,8 +108,11 @@ window.onload = () => {
                     }
                 }, parseFloat(getComputedStyle(menuLink).transitionDuration) * 1000);
             }
+            /*Добавляем возможность Показать Меню при Фокусировке на Первом Линке */
             if(header){
                 menuLinks[0].addEventListener("focus", () => header.classList.add("_active"));
+                /*Если Ширина Экрана больше 480:
+                Добавляем возможность Скрывать Меню при Конце Фокусировки на Последнем Линке */
                 if(!isSmallerEqual480px){
                     menuLinks[menuLinks.length - 1].addEventListener("blur", () => header.classList.remove("_active"));
                 }
@@ -114,11 +124,18 @@ window.onload = () => {
             };
         }
 
-        Array.from(menuLinks).slice(1).forEach((menuLink, i) => {
-            addEventListeners(menuLink, i+1);
+        menuLinks.forEach((menuLink, i) => {
+            menuLink.addEventListener("mouseenter", () => handleInteract(i));
+            menuLink.addEventListener("focus", () => handleInteract(i));
+            menuLink.addEventListener("mouseleave", () => {
+                if(menuLink !== document.activeElement) handleEndInteract(menuLink, i)
+            });
+            menuLink.addEventListener("blur", () => handleEndInteract(menuLink, i))
         });
     }
-
+    
+    /*Делаем Коррекные Таб Индексы, при Скрытии Меню,
+    Добавляем Возможность прятать Меню после Конца Фокусировки на Кнопке Зарегестрироваться*/
     if(isSmallerEqual768px && isSmallerEqual480px !== undefined){
         const signIn = document.querySelector(".header__sign-in");
         const signUp = document.querySelector(".header__sign-up");
@@ -135,6 +152,58 @@ window.onload = () => {
             signIn.tabIndex = 1;
             signUp.tabIndex = 2;
             burger.tabIndex = 3;
+        }
+    }
+
+    const getMonth = (numb) => {
+        switch(numb){
+            case 1:
+                return "Jan";
+            case 2:
+                return "Feb";
+            case 3:
+                return "Mar";
+            case 4:
+                return "Apr";
+            case 5:
+                return "May";
+            case 6:
+                return "Jun";
+            case 7:
+                return "Jul";
+            case 8:
+                return "Aug";
+            case 9:
+                return "Sep";
+            case 10:
+                return "Oct";
+            case 11:
+                return "Nov";
+            default:
+                return "Dec";
+        }
+    }
+
+    /*Делаем Динамичный Выбор Нынешнего Месяца, с удалением Неактуальных и добавлением Актуальных*/
+    if(!isSmallerEqual992px){
+        const monthesContainer = document.querySelector(".statistics-intro__calendar")
+        const monthes = document.querySelectorAll(".statistics-intro__month");
+        const today = new Date();
+        if(monthesContainer && monthes){
+            if(today.getMonth() + 1 > monthes.length){
+                for(let i = monthes.length + 1; i <= today.getMonth() + 1; i++){
+                    document.querySelectorAll(".statistics-intro__month")[0].remove();
+
+                    let newMonth = document.createElement("li");
+                    newMonth.classList.add("statistics-intro__month");
+                    newMonth.innerText = getMonth(i);
+
+                    monthesContainer.append(newMonth);
+                }
+                document.querySelectorAll(".statistics-intro__month")[monthes.length - 1].classList.add("_current");
+            } else {
+                monthes[today.getMonth()].classList.add("_current");
+            }
         }
     }
 };

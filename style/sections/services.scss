@@ -1,0 +1,141 @@
+@use "../service/vars.scss" as vars;
+
+.services{
+    &__info{
+        max-width: vars.toRem(664);
+        margin: 0 auto vars.toRem(80);
+        text-align: center;
+    }
+    @media (max-width: vars.toEm(vars.$containerPadding, 16)) {
+        &__info{
+            margin: 0 auto vars.toRem(64);
+        }
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__info{
+            margin: 0 auto vars.toRem(48);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__info{
+            margin: 0 auto vars.toRem(32);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__info{
+            margin: 0 auto vars.toRem(24);
+        }
+    }
+
+    @media (min-width: vars.toEm(993, 16)) {
+        &__heading{
+            max-width: vars.toRem(495);
+            margin: 0 auto;
+        }
+    }
+
+    &__description{
+        font-weight: 300;
+    }
+
+    &__list{
+        display: grid;
+        gap: vars.toRem(30);
+        grid-template-columns: repeat(auto-fit, minmax(vars.toRem(250), 1fr));
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__list{
+            gap: vars.toRem(24);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__list{
+            gap: vars.toRem(16);
+        }
+    }
+
+    &__link{
+        border-radius: vars.toRem(10);
+        padding: vars.toRem(32);
+        background-color: #fff;
+        box-shadow: 0px 30px 50px -10px rgba(152, 151, 151, 0.37);
+
+        display: flex;
+        flex-direction: column;
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__link{
+            padding: vars.toRem(24);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__link{
+            padding: vars.toRem(16);
+        }
+    }
+}
+.link-services{
+    &__icon{
+        background: vars.$darkBlue;
+        border-radius: 50%;
+
+        align-self: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        min-width: vars.toRem(58);
+        height: vars.toRem(58);
+
+        &::before{
+            color: vars.$yellow;
+            font-size: vars.toRem(32);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__icon{
+            min-width: vars.toRem(56);
+            height: vars.toRem(56);
+        }
+    }
+
+    @media (min-width: vars.toEm(vars.$containerPadding, 16)) {
+        &__title{
+            max-width: vars.toRem(181);
+        }
+    }
+    &__title{
+        color: vars.$darkBlue;
+        font-family: "Avant";
+        font-size: vars.toRem(24);
+        font-weight: 600;
+        line-height: vars.toEm(32, 24);
+        margin: vars.toRem(24) 0 vars.toRem(12);
+
+        flex: 1 1 auto;
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__title{
+            font-size: vars.toRem(21);
+            margin: vars.toRem(16) 0 vars.toRem(10);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__title{
+            margin: vars.toRem(10) 0 vars.toRem(5);
+        }
+    }
+
+    &__description{
+        color: vars.$lightGrayBlue;
+        font-family: Inter;
+        font-size: vars.toRem(18);
+        font-weight: 400;
+        line-height: vars.toEm(20, 18);
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__description{
+            font-size: vars.toRem(16);
+        }
+    }
+}

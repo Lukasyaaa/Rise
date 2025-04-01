@@ -1,0 +1,44 @@
+@use "../service/vars.scss" as vars;
+
+.skill{
+    @media (min-width: vars.toEm(769, 16)) {
+        &__image-parent{
+            padding-bottom: vars.toPercent(444, vars.$container);
+            &::after{
+                height: vars.toPercent(182, 444);
+                bottom: vars.toPercent(-45, 444);
+            }
+        }
+    }
+
+    &__more{
+        display: inline-flex;
+        align-items: center;
+        flex-direction: row-reverse;
+
+        border-radius: vars.toRem(23);
+        padding: vars.toRem(12) vars.toRem(33.5);
+
+        span{
+            font-family: Inter;
+            font-size: vars.toRem(14);
+            line-height: vars.toEm(22, 14);
+        }
+        &::before{
+            margin-left: vars.toRem(6);
+            font-size: vars.toRem(10);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__more{
+            display: flex;
+            justify-content: center;
+        }
+    }
+    
+    @media (min-width: vars.toEm(769, 16)) {
+        &__description{
+            max-width: vars.toRem(508);
+        }
+    }
+}

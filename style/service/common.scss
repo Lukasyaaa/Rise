@@ -8,6 +8,10 @@
     padding-right: 15px;
 }
 
+main{
+    background: vars.$lighterWhite;
+}
+
 .button_yellow{
     background: vars.$yellow;
 
@@ -54,4 +58,190 @@
 
     color: vars.$yellow;
     font-weight: 500;
+}
+
+.section{
+    overflow: hidden;
+
+    padding: vars.toRem(140) 0;
+    @media (max-width: vars.toEm(vars.$container + 30, 16)) {
+        padding: vars.toRem(108) 0;
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        padding: vars.toRem(96) 0;
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        padding: vars.toRem(64) 0;
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        padding: vars.toRem(42) 0;
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        .container{
+            display: flex;
+            align-items: center;
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        .container._left-image{
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        .container:not(._left-image) &__info{
+            margin-right: vars.toRem(30);
+        }
+        .container._left-image &__info{
+            margin-left: vars.toRem(30);
+        }
+    }
+    &__info{
+        flex: 1 1 auto;
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__info{
+            margin-bottom: vars.toRem(24);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__info{
+            margin-bottom: vars.toRem(16);
+        }
+    }
+
+    .container:not(._left-image) &__image-parent::after{
+        right: vars.toPercent(-45, 620);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        .container._left-image &__image-parent::after{
+            right: vars.toPercent(-22.5, 738);
+        }
+    }
+    .container._left-image &__image-parent::after{
+        left: vars.toPercent(-45, 620);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        .container._left-image &__image-parent::after{
+            left: vars.toPercent(-22.5, 738);
+        }
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        &__image-parent{
+            flex: 0 0 vars.toPercent(620, vars.$container);
+            &::after{
+                content: "";
+                position: absolute;
+                z-index: -1;
+
+                width: vars.toPercent(182, 620);
+
+                background: url("../assets/img/decor/circle.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+    }
+    &__image-parent{
+        position: relative;
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__image-parent{
+            padding-bottom: vars.toPercent(300, 738);
+        }
+    }
+
+    &__image, &__image img{
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 100%;
+    }   
+    &__image img{
+        border-radius: vars.toRem(16);
+        object-fit: cover;
+    }
+
+    &__subheading{
+        text-transform: uppercase;
+
+        display: inline-block;
+        padding: vars.toRem(10) vars.toRem(16);
+        background: rgba($color: vars.$yellow, $alpha: 0.2);
+        border-radius: vars.toRem(14.5);
+
+        color: vars.$darkestBlue;
+        font-family: Inter;
+        font-size: vars.toRem(16);
+        font-weight: 400;
+        line-height: vars.toEm(19, 165);
+
+        margin-bottom: vars.toRem(24);
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__subheading{
+            margin-bottom: vars.toRem(16);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__subheading{
+            margin-bottom: vars.toRem(10);
+        }
+    }
+
+    &__heading{
+        color: vars.$darkBlue;
+        font-family: "Avant";
+        font-size: vars.toRem(44);
+        font-weight: 600;
+        line-height: vars.toEm(56, 44);
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__heading{
+            font-size: vars.toRem(38);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__heading{
+            font-size: vars.toRem(30);
+        }
+    }
+
+    &__description{
+        color: vars.$lightGrayBlue;
+        font-family: Inter;
+        font-size: vars.toRem(20);
+        font-weight: 400;
+        line-height: vars.toEm(30, 20);
+
+        margin: vars.toRem(16) 0 vars.toRem(40);
+    }
+    @media (max-width: vars.toEm(vars.$container, 16)) {
+        &__description{
+            margin: vars.toRem(16) vars.toRem(32);
+        }
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__description{
+            font-size: vars.toRem(18);
+            margin: vars.toRem(10) 0 vars.toRem(24);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__description{
+            margin: vars.toRem(10) 0 vars.toRem(16);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__description{
+            font-size: vars.toRem(16);
+            line-height: vars.toEm(26, 20);
+            margin: vars.toRem(5) 0 vars.toRem(10);
+        }
+    }
 }

@@ -206,4 +206,91 @@ window.onload = () => {
             }
         }
     }
+
+    const equalizeSlideHeights = () => {
+        const slides = document.querySelectorAll('.works .swiper-slide');
+        let maxHeight = 0;
+      
+        // Находим максимальную высоту среди всех слайдов
+        slides.forEach(slide => {
+            maxHeight = Math.max(maxHeight, slide.offsetHeight);
+        });
+      
+        slides.forEach(slide => {
+            slide.style.height = `${maxHeight}px`;
+        });
+    }
+
+    new Swiper(".works__slider", {
+        navigation: {
+            nextEl: ".works__arrow_next",
+            prevEl: ".works__arrow_prev"
+        },
+        grabCursor: true,
+        slidesPerView: "auto",
+        watchOverflow: true,
+        spaceBetween: 30,
+        breakpoints: {
+            768: {
+                spaceBetween: 24
+            },
+            480: {
+                spaceBetween: 16
+            }
+        }
+    });
+    equalizeSlideHeights();
+
+    const reviewsSlides = document.querySelectorAll(".reviews .swiper-slide");
+    new Swiper(".reviews__slider", {
+        grabCursor: true,
+        slidesPerView: "auto",
+        watchOverflow: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        initialSlide: (reviewsSlides) ? (Math.floor(reviewsSlides.length / 2) + (reviewsSlides % 2 === 0)) : 3,
+        breakpoints: {
+            768: {
+                spaceBetween: 24
+            },
+            480: {
+                spaceBetween: 16
+            }
+        },
+        pagination:{
+            el: ".reviews__dots",
+            clickable: true
+        },
+        mousewheel:{
+            sensivity: 1,
+        }
+    });
+
+    const reviewsDotsContainer = document.querySelector(".reviews__dots");
+    const reviewsDots = document.querySelectorAll(".swiper-pagination-bullet:not(.swiper-pagination-bullet-active)");
+    
+    console.log(reviewsDots, reviewsDotsContainer);
+    if(reviewsDots && reviewsDotsContainer){
+        reviewsDots.forEach(reviewDot => {
+            reviewDot.addEventListener("mouseenter", () => {
+                reviewDot.classList.add("_intrct");
+                reviewsDotsContainer.classList.add("_hide-active");
+
+            });
+            reviewDot.addEventListener("focus", () => {
+                reviewDot.classList.add("_intrct");
+                reviewsDotsContainer.classList.add("_hide-active");
+            });
+            reviewDot.addEventListener("mouseleave", () => {
+                if(document.activeElement !== reviewDot){
+                    reviewDot.classList.remove("_intrct");
+                    reviewsDotsContainer.classList.remove("_hide-active");
+                }
+            });
+            reviewDot.addEventListener("blur", () => {
+                reviewDot.classList.remove("_intrct");
+                reviewsDotsContainer.classList.remove("_hide-active");
+            });
+        });
+    }
 };

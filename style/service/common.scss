@@ -9,7 +9,7 @@
 }
 
 main{
-    background: vars.$lighterWhite;
+    background: vars.$white;
 }
 
 .button_yellow{
@@ -58,6 +58,8 @@ main{
 
     color: vars.$yellow;
     font-weight: 500;
+
+    transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s letter-spacing;
 }
 
 .section{
@@ -167,7 +169,7 @@ main{
         object-fit: cover;
     }
 
-    &__subheading{
+    &__supheading{
         text-transform: uppercase;
 
         display: inline-block;
@@ -179,17 +181,16 @@ main{
         font-family: Inter;
         font-size: vars.toRem(16);
         font-weight: 400;
-        line-height: vars.toEm(19, 165);
 
         margin-bottom: vars.toRem(24);
     }
     @media (max-width: vars.toEm(992, 16)) {
-        &__subheading{
+        &__supheading{
             margin-bottom: vars.toRem(16);
         }
     }
     @media (max-width: vars.toEm(768, 16)) {
-        &__subheading{
+        &__supheading{
             margin-bottom: vars.toRem(10);
         }
     }

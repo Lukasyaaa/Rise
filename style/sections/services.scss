@@ -1,6 +1,10 @@
 @use "../service/vars.scss" as vars;
 
 .services{
+    &__supheading{
+        line-height: vars.toEm(24, 16);
+    }
+
     &__info{
         max-width: vars.toRem(664);
         margin: 0 auto vars.toRem(80);

@@ -11,6 +11,15 @@
         }
     }
 
+    &__supheading{
+        line-height: vars.toEm(19, 16);
+    }
+
+    @keyframes arrowMove {
+        25%{
+            transform: translateX(10px);
+        }
+    }
     &__more{
         display: inline-flex;
         align-items: center;
@@ -27,6 +36,23 @@
         &::before{
             margin-left: vars.toRem(6);
             font-size: vars.toRem(10);
+
+            animation: arrowMove 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s infinite;
+            animation-play-state: paused;
+        }
+    }
+    &__more:focus{
+        letter-spacing: vars.toEm(2, 14);
+        &::before{
+            animation-play-state: running;
+        }
+    }
+    @media (any-hover: hover) {
+        &__more:hover{
+            letter-spacing: vars.toEm(2, 14);
+            &::before{
+                animation-play-state: running;
+            }
         }
     }
     @media (max-width: vars.toEm(768, 16)) {

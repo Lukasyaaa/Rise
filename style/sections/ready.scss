@@ -13,6 +13,10 @@
         }
     }
 
+    &__supheading{
+        line-height: vars.toEm(19, 16);
+    }
+
     @media (min-width: vars.toEm(769, 16)) {
         &__description{
             max-width: vars.toRem(477);

@@ -2,6 +2,8 @@
 
 .contact{
     padding: vars.toRem(100) 0 vars.toRem(92);
+    background: #fff;
+    
     @media (max-width: vars.toEm(992, 16)) {
         padding: vars.toRem(96) 0 vars.toRem(92);
     }
@@ -11,7 +13,6 @@
     @media (max-width: vars.toEm(480, 16)) {
         padding: vars.toRem(42) 0;
     }
-    background-color: #fff;
 
     @media (min-width: vars.toEm(769, 16)) {
         .container{
@@ -90,7 +91,7 @@
         white-space: nowrap;
     }
     &__link{
-        display: inline-flex;
+        display: flex;
         position: relative;
         a{
             color: vars.$lightGrayBlue;

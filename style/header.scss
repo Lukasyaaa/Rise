@@ -73,10 +73,7 @@
 
     &__logo{
         height: vars.toRem(67);
-        img{
-            height: 100%;
-            width: auto;
-        }
+        width: auto;
     }
     @media (max-width: vars.toEm(768, 16)) {
         &__logo{

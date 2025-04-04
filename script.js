@@ -2,12 +2,21 @@ window.onload = () => {
     let isSmallerEqual480px = undefined;
     let isSmallerEqual768px = undefined;
     let isSmallerEqual992px = undefined;
-
-    const container = document.querySelector(".container");
-    let containerWidth = 0;
-    let containerPaddingLeft = 0;
-    let containerPaddingRight = 0;
     
+    const handleInteract = (el, container) => {
+        el.classList.add("_intrct");
+        container.classList.add("_hide-active");
+    };
+    const handleEndInteract = (el, container) => {
+        el.classList.remove("_intrct");
+        container.classList.remove("_hide-active");
+    };
+    const handleMouseEndInteract = (el, container) => {
+        if(document.activeElement !== el){
+            handleEndInteract(el, container);
+        }
+    };
+
     const header = document.querySelector(".header");
     if(header){
         /*Добавляем возможность показа/cкрытия Меню при нажатии на Бургер*/
@@ -18,6 +27,7 @@ window.onload = () => {
             });
         }
 
+        /*Добавляем Класс, что делает тень для Шапки при Скролле*/
         window.addEventListener("scroll", () => {
             if(window.scrollY !== 0){
                 header.classList.add("_scroll");
@@ -34,12 +44,13 @@ window.onload = () => {
         }
     }
 
+    const container = document.querySelector(".container");
     const menu = document.querySelector(".menu");
     const menuInner = document.querySelector(".menu__list");
     if(container){
-        containerPaddingLeft = parseFloat(getComputedStyle(container).paddingLeft);
-        containerPaddingRight = parseFloat(getComputedStyle(container).paddingRight);
-        containerWidth = container.getBoundingClientRect().width;
+        const containerPaddingLeft = parseFloat(getComputedStyle(container).paddingLeft);
+        const containerPaddingRight = parseFloat(getComputedStyle(container).paddingRight);
+        const containerWidth = container.getBoundingClientRect().width;
         isSmallerEqual992px = parseFloat(getComputedStyle(container).minHeight) === 80;
 
         /*Грамотно Позиционируем Контейнер Линков по Центру Страницы*/
@@ -48,7 +59,6 @@ window.onload = () => {
             isSmallerEqual480px = parseFloat(getComputedStyle(menu).paddingTop) === 104;
             
             if(!isSmallerEqual768px){
-                const menuInnerWidth = menuInner.getBoundingClientRect().width;
                 const pageMinusContainer = (window.innerWidth - containerWidth) / 2;
 
                 const menuMarginLeft = parseFloat(getComputedStyle(menu).marginLeft);
@@ -58,7 +68,8 @@ window.onload = () => {
                 const menuMarginRight = parseFloat(getComputedStyle(menu).marginRight);
                 const rightContentWidth = 
                 window.innerWidth - (menu.getBoundingClientRect().right + pageMinusContainer + menuMarginRight + containerPaddingRight);
-
+                
+                const menuInnerWidth = menuInner.getBoundingClientRect().width;
                 const windowMinusMenuInner = (window.innerWidth - menuInnerWidth) / 2;
                 const menuInnerLeft = windowMinusMenuInner - (pageMinusContainer) - containerPaddingLeft - containerPaddingRight - leftContentWidth;
                 const menuInnerRight = windowMinusMenuInner - (pageMinusContainer) - containerPaddingLeft - containerPaddingRight - rightContentWidth;
@@ -90,17 +101,12 @@ window.onload = () => {
     Если Ширина Экрана больше 480, то Добавляем Возможность Исчезновения Меню, при Конце Фокусировке на Последнем Линке*/
     const menuLinks = document.querySelectorAll(".menu__link a");
     const menuLinksParents = document.querySelectorAll(".menu__link:not(._current)");
-    if(menuLinks && menuLinksParents && menuInner){
+    if(menuLinks.length && menuLinksParents.length && menuInner){
         isSmallerEqual768px = getComputedStyle(menuLinks[0]).color !== "rgb(186, 185, 185)";
-
-        const handleInteract = (i) => {
-            menuLinksParents[i].classList.add("_intrct");
-            menuInner.classList.add("_hide-active");
-        };
         
-        let handleEndInteract;
+        let menuHandleEndInteract;
         if(isSmallerEqual768px){
-            handleEndInteract =  (menuLink, i) => {
+            menuHandleEndInteract =  (menuLink, i) => {
                 menuLinksParents[i].classList.remove("_intrct");
                 setTimeout(() => {
                     if (!document.querySelector(".menu__link._intrct")) {
@@ -118,216 +124,224 @@ window.onload = () => {
                 }
             }
         } else {
-            handleEndInteract = (menuLink, i) => {
-                menuLinksParents[i].classList.remove("_intrct");
-                menuInner.classList.remove("_hide-active");
-            };
+            menuHandleEndInteract = handleEndInteract;
         }
 
         menuLinks.forEach((menuLink, i) => {
-            menuLink.addEventListener("mouseenter", () => handleInteract(i));
-            menuLink.addEventListener("focus", () => handleInteract(i));
-            menuLink.addEventListener("mouseleave", () => {
-                if(menuLink !== document.activeElement) handleEndInteract(menuLink, i)
-            });
-            menuLink.addEventListener("blur", () => handleEndInteract(menuLink, i))
+            menuLink.addEventListener("mouseenter", () => handleInteract(menuLinksParents[i], menuInner));
+            menuLink.addEventListener("focus", () => handleInteract(menuLinksParents[i], menuInner));
+            menuLink.addEventListener("mouseleave", () => menuHandleEndInteract(menuLinksParents[i], menuInner));
+            menuLink.addEventListener("blur", () => handleEndInteract(menuLinksParents[i], menuInner))
         });
     }
     
     /*Делаем Коррекные Таб Индексы, при Скрытии Меню,
     Добавляем Возможность прятать Меню после Конца Фокусировки на Кнопке Зарегестрироваться*/
-    if(isSmallerEqual768px && isSmallerEqual480px !== undefined){
-        const signIn = document.querySelector(".header__sign-in");
-        const signUp = document.querySelector(".header__sign-up");
-        const burger = document.querySelector(".header__burger");
-        const menuSignUp = document.querySelector(".menu__sign-up");
-        if(isSmallerEqual480px){
-            signIn.disabled = true;
-            signUp.disabled = true;
-            burger.tabIndex = 1;
-            if(header){
-                menuSignUp.addEventListener("blur", () => header.classList.remove("_active"));
+    const authorization = document.querySelector(".header__authorization");
+    const signIn = document.querySelector(".header__sign-in");
+    const signUp = document.querySelector(".header__sign-up");
+    const burger = document.querySelector(".header__burger");
+    const menuSignUp = document.querySelector(".menu__sign-up");
+    if(authorization && signIn && signUp && burger && menuSignUp){
+        isSmallerEqual768px = getComputedStyle(burger).display !== "none";
+        if(isSmallerEqual768px){
+            isSmallerEqual480px = getComputedStyle(authorization).display === "none";
+            if(isSmallerEqual480px){
+                signIn.disabled = true;
+                signUp.disabled = true;
+                burger.tabIndex = 1;
+                if(header){
+                    menuSignUp.addEventListener("blur", () => header.classList.remove("_active"));
+                }
+            } else {
+                signIn.tabIndex = 1;
+                signUp.tabIndex = 2;
+                burger.tabIndex = 3;
             }
-        } else {
-            signIn.tabIndex = 1;
-            signUp.tabIndex = 2;
-            burger.tabIndex = 3;
-        }
-    }
-
-    const getMonth = (numb) => {
-        switch(numb){
-            case 1:
-                return "Jan";
-            case 2:
-                return "Feb";
-            case 3:
-                return "Mar";
-            case 4:
-                return "Apr";
-            case 5:
-                return "May";
-            case 6:
-                return "Jun";
-            case 7:
-                return "Jul";
-            case 8:
-                return "Aug";
-            case 9:
-                return "Sep";
-            case 10:
-                return "Oct";
-            case 11:
-                return "Nov";
-            default:
-                return "Dec";
         }
     }
 
     /*Делаем Динамичный Выбор Нынешнего Месяца, с удалением Неактуальных и добавлением Актуальных*/
-    if(!isSmallerEqual992px){
-        const monthesContainer = document.querySelector(".statistics-intro__calendar")
-        const monthes = document.querySelectorAll(".statistics-intro__month");
-        const today = new Date();
-        if(monthesContainer && monthes){
-            if(today.getMonth() + 1 > monthes.length){
-                for(let i = monthes.length + 1; i <= today.getMonth() + 1; i++){
-                    document.querySelectorAll(".statistics-intro__month")[0].remove();
-
-                    let newMonth = document.createElement("li");
-                    newMonth.classList.add("statistics-intro__month");
-                    newMonth.innerText = getMonth(i);
-
-                    monthesContainer.append(newMonth);
+    const statistics = document.querySelector(".intro__statistics");
+    if(statistics){
+        isSmallerEqual992px = getComputedStyle(statistics).display === "none";
+        if(!isSmallerEqual992px){
+            const monthesContainer = document.querySelector(".statistics-intro__calendar")
+            const monthes = document.querySelectorAll(".statistics-intro__month");
+            if(monthesContainer && monthes.length){
+                const getMonth = (numb) => {
+                    switch(numb){
+                        case 1:
+                            return "Jan";
+                        case 2:
+                            return "Feb";
+                        case 3:
+                            return "Mar";
+                        case 4:
+                            return "Apr";
+                        case 5:
+                            return "May";
+                        case 6:
+                            return "Jun";
+                        case 7:
+                            return "Jul";
+                        case 8:
+                            return "Aug";
+                        case 9:
+                            return "Sep";
+                        case 10:
+                            return "Oct";
+                        case 11:
+                            return "Nov";
+                        default:
+                            return "Dec";
+                    }
                 }
-                document.querySelectorAll(".statistics-intro__month")[monthes.length - 1].classList.add("_current");
-            } else {
-                monthes[today.getMonth()].classList.add("_current");
+                const today = new Date();
+                if(today.getMonth() + 1 > monthes.length){
+                    for(let i = monthes.length + 1; i <= today.getMonth() + 1; i++){
+                        document.querySelectorAll(".statistics-intro__month")[0].remove();
+
+                        let newMonth = document.createElement("li");
+                        newMonth.classList.add("statistics-intro__month");
+                        newMonth.innerText = getMonth(i);
+
+                        monthesContainer.append(newMonth);
+                    }
+                    document.querySelectorAll(".statistics-intro__month")[monthes.length - 1].classList.add("_current");
+                } else {
+                    monthes[today.getMonth()].classList.add("_current");
+                }
             }
         }
     }
 
     const equalizeSlideHeights = () => {
         const slides = document.querySelectorAll('.works .swiper-slide');
-        let maxHeight = 0;
-      
-        // Находим максимальную высоту среди всех слайдов
-        slides.forEach(slide => {
-            maxHeight = Math.max(maxHeight, slide.offsetHeight);
-        });
-      
-        slides.forEach(slide => {
-            slide.style.height = `${maxHeight}px`;
+        if(slides.length){
+            let maxHeight = 0;
+            slides.forEach(slide => { maxHeight = Math.max(maxHeight, slide.getBoundingClientRect().height); });
+            slides.forEach(slide => { slide.style.height = `${maxHeight}px`; });
+        }
+    }
+
+    const worksSlider = document.querySelector(".works__slider");
+    if(worksSlider){
+        const worksNextArrow = document.querySelector(".works__arrow_next");
+        const worksPrevArrow = document.querySelector(".works__arrow_prev");
+        let navigation = {};
+
+        if (worksNextArrow) navigation.nextEl = ".works__arrow_next";
+        if (worksPrevArrow) navigation.prevEl = ".works__arrow_prev";
+
+        new Swiper(".works__slider", {
+            navigation: navigation,
+            grabCursor: true,
+            slidesPerView: "auto",
+            watchOverflow: true,
+            spaceBetween: 30,
+            breakpoints: {
+                768: {
+                    spaceBetween: 24
+                },
+                480: {
+                    spaceBetween: 16
+                }
+            },
+            on: {
+                init: equalizeSlideHeights
+            }
         });
     }
 
-    new Swiper(".works__slider", {
-        navigation: {
-            nextEl: ".works__arrow_next",
-            prevEl: ".works__arrow_prev"
-        },
-        grabCursor: true,
-        slidesPerView: "auto",
-        watchOverflow: true,
-        spaceBetween: 30,
-        breakpoints: {
-            768: {
-                spaceBetween: 24
-            },
-            480: {
-                spaceBetween: 16
-            }
-        }
-    });
-    equalizeSlideHeights();
-    
-    
-    const reviewsDotsContainer = document.querySelector(".reviews__dots");
-    const handleInteract = (e) => {
-        e.currentTarget.classList.add("_intrct");
-        reviewsDotsContainer.classList.add("_hide-active");
-    };
-    const handleEndInteract = (e) => {
-        e.currentTarget.classList.remove("_intrct");
-        reviewsDotsContainer.classList.remove("_hide-active");
-    };
-    const mouseHandleEndInteract = (e) => {
-        if(document.activeElement !== e.currentTarget){
-            handleEndInteract(e);
-        }
-    };
-    const clickReviewDotHandle = (el) => {
-        el.tabIndex = -1;
-        el.removeEventListener("mouseenter", handleInteract);
-        el.removeEventListener("focus", handleInteract);
-        el.removeEventListener("mouseleave", mouseHandleEndInteract);
-        el.removeEventListener("blur", handleEndInteract);
-        el.classList.remove("_intrct");
-        reviewsDotsContainer.classList.remove("_hide-active");
-
-        const oldReviewsCurrentDot = document.querySelector(".swiper-pagination-bullet._active");
-        oldReviewsCurrentDot.tabIndex = 0;
-        oldReviewsCurrentDot.addEventListener("mouseenter", handleInteract);
-        oldReviewsCurrentDot.addEventListener("focus", handleInteract);
-        oldReviewsCurrentDot.addEventListener("mouseleave", mouseHandleEndInteract);
-        oldReviewsCurrentDot.addEventListener("blur", handleEndInteract);
-
-        oldReviewsCurrentDot.classList.remove("_active");
-        el.classList.add("_active");
-    };
-
+    const reviewsSlider = document.querySelector(".reviews__slider");
     const reviewsSlides = document.querySelectorAll(".reviews .swiper-slide");
-    new Swiper(".reviews__slider", {
-        grabCursor: true,
-        slidesPerView: "auto",
-        watchOverflow: true,
-        spaceBetween: 30,
-        centeredSlides: true,
-        initialSlide: (reviewsSlides) ? (Math.floor(reviewsSlides.length / 2) + (reviewsSlides % 2 === 0)) : 3,
-        breakpoints: {
-            768: {
-                spaceBetween: 24
-            },
-            480: {
-                spaceBetween: 16
+    if(reviewsSlider && reviewsSlides.length){
+        const reviewsDotsContainer = document.querySelector(".reviews__dots");
+        let pagination = null;
+        let on = null;
+        if(reviewsDotsContainer){
+            pagination = {
+                el: ".reviews__dots",
+                clickable: true
             }
-        },
-        pagination:{
-            el: ".reviews__dots",
-            clickable: true
-        },
-        on: {
-            slideChange: function () {
-                const activeDot = document.querySelector(".swiper-pagination-bullet-active");
-                if (activeDot) clickReviewDotHandle(activeDot);
+
+            const clickReviewDotHandle = () => {
+                const clickedReviewDot = document.querySelector(".swiper-pagination-bullet-active");
+                if(clickedReviewDot){
+                    clickedReviewDot.tabIndex = -1;
+                    clickedReviewDot.removeEventListener("mouseenter", () => handleInteract(clickedReviewDot, reviewsDotsContainer));
+                    clickedReviewDot.removeEventListener("focus", () => handleInteract(clickedReviewDot, reviewsDotsContainer));
+                    clickedReviewDot.removeEventListener("mouseleave", () => handleMouseEndInteract(clickedReviewDot, reviewsDotsContainer));
+                    clickedReviewDot.removeEventListener("blur", () => handleEndInteract(clickedReviewDot, reviewsDotsContainer));
+                    clickedReviewDot.classList.remove("_intrct");
+                    reviewsDotsContainer.classList.remove("_hide-active");
+            
+                    const oldReviewsCurrentDot = document.querySelector(".swiper-pagination-bullet._active");
+                    oldReviewsCurrentDot.tabIndex = 0;
+                    oldReviewsCurrentDot.addEventListener("mouseenter", () => handleInteract(oldReviewsCurrentDot, reviewsDotsContainer));
+                    oldReviewsCurrentDot.addEventListener("focus", () => handleInteract(oldReviewsCurrentDot, reviewsDotsContainer));
+                    oldReviewsCurrentDot.addEventListener("mouseleave", () => handleMouseEndInteract(oldReviewsCurrentDot, reviewsDotsContainer));
+                    oldReviewsCurrentDot.addEventListener("blur", () => handleEndInteract(oldReviewsCurrentDot, reviewsDotsContainer));
+            
+                    oldReviewsCurrentDot.classList.remove("_active");
+                    clickedReviewDot.classList.add("_active");
+                }
+            };
+
+            const reviewsDotsAddEventListeners = () => {
+                const reviewsDots = document.querySelectorAll(".swiper-pagination-bullet:not(.swiper-pagination-bullet-active)");
+                const reviewsCurrentDot = document.querySelector(".swiper-pagination-bullet-active");
+                if(reviewsCurrentDot){
+                    reviewsCurrentDot.tabIndex = -1;
+                    reviewsCurrentDot.classList.add("_active");
+                }
+                if(reviewsDots){
+                    reviewsDots.forEach(reviewsDot => {
+                        reviewsDot.addEventListener("mouseenter", () => handleInteract(reviewsDot, reviewsDotsContainer));
+                        reviewsDot.addEventListener("focus", () => handleInteract(reviewsDot, reviewsDotsContainer));
+                        reviewsDot.addEventListener("mouseleave", () => handleMouseEndInteract(reviewsDot, reviewsDotsContainer));
+                        reviewsDot.addEventListener("blur", () => handleEndInteract(reviewsDot, reviewsDotsContainer));
+                    });
+                }
+            }
+
+            on = {
+                slideChange: clickReviewDotHandle,
+                init: reviewsDotsAddEventListeners
             }
         }
-    });
-
-    const reviewsDots = document.querySelectorAll(".swiper-pagination-bullet:not(.swiper-pagination-bullet-active)");
-    const reviewsCurrentDot = document.querySelector(".swiper-pagination-bullet-active");
-    if(reviewsCurrentDot){
-        reviewsCurrentDot.tabIndex = -1;
-        reviewsCurrentDot.classList.add("_active");
-    }
-    if(reviewsDots && reviewsDotsContainer){
-        reviewsDots.forEach(reviewsDot => {
-            reviewsDot.addEventListener("mouseenter", handleInteract);
-            reviewsDot.addEventListener("focus", handleInteract);
-            reviewsDot.addEventListener("mouseleave", mouseHandleEndInteract);
-            reviewsDot.addEventListener("blur", handleEndInteract);
+        new Swiper(".reviews__slider", {
+            grabCursor: true,
+            slidesPerView: "auto",
+            watchOverflow: true,
+            spaceBetween: 30,
+            centeredSlides: true,
+            initialSlide: Math.floor(reviewsSlides.length / 2) + (reviewsSlides % 2 === 0),
+            breakpoints: {
+                768: {
+                    spaceBetween: 24
+                },
+                480: {
+                    spaceBetween: 16
+                }
+            },
+            pagination: pagination,
+            on: on
         });
     }
     
     const footerColumns = document.querySelectorAll(".column-footer");
     const footerLists = document.querySelectorAll(".column-footer__list");
     const footerListOpeners = document.querySelectorAll(".column-footer__title button");
-    if(footerColumns.length && isSmallerEqual480px){
-        if(footerLists.length && footerListOpeners.length){
+    if(footerLists.length && footerListOpeners.length && footerColumns.length){
+        isSmallerEqual480px = getComputedStyle(footerLists[0]).overflow === "hidden";
+        if(isSmallerEqual480px){
             const footerListsHeight = Array.from(footerLists, el => el.offsetHeight);
             footerLists.forEach(footerList => {
                 footerList.style.height = "0px";
-            })
+            });
+
             footerListOpeners.forEach((footerListOpener, i) => {
                 footerListOpener.addEventListener("click", () => {
                     footerColumns[i].classList.toggle("_active");

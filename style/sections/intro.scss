@@ -1,17 +1,19 @@
 @use "../service/vars.scss" as vars;
 
+body.webp .intro{
+    background-image: url("../assets/img/intro/background/image.webp");
+}
 .intro{
     padding: vars.toRem(44) 0 vars.toRem(61);
-    @media (max-width: vars.toEm(768, 16)) {
-        padding: vars.toRem(16) 0 vars.toRem(32);
-    }
-
     background-color: vars.$darkestBlue;
     background-image: url("../assets/img/intro/background/image.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    @media (max-width: vars.toEm(768, 16)) {
+        padding: vars.toRem(16) 0 vars.toRem(32);
+    }
 
     @media (min-width: vars.toEm(993, 16)) {
         &__row{

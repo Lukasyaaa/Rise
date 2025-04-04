@@ -4,6 +4,9 @@
 body, ul, h1, h2, h3, h4, figure, dl, dd{
     margin: unset;
 }
+address{
+    font-style: unset;
+}
 ul, button{
     padding: unset;
 }
@@ -17,10 +20,12 @@ a{
 button:not(:disabled){
     cursor: pointer;
 }
-button{
-    text-align: center;
+button, input{
     background-color: unset;
     border: unset;
+}
+button{
+    text-align: center;
 }
 ul{
     list-style: none;
@@ -28,7 +33,7 @@ ul{
 img{
     display: block;
 }
-a:focus, button:focus{
+a:focus, button:focus, input:focus{
     outline: none;
 }
 strong{

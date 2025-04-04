@@ -240,6 +240,41 @@ window.onload = () => {
         }
     });
     equalizeSlideHeights();
+    
+    
+    const reviewsDotsContainer = document.querySelector(".reviews__dots");
+    const handleInteract = (e) => {
+        e.currentTarget.classList.add("_intrct");
+        reviewsDotsContainer.classList.add("_hide-active");
+    };
+    const handleEndInteract = (e) => {
+        e.currentTarget.classList.remove("_intrct");
+        reviewsDotsContainer.classList.remove("_hide-active");
+    };
+    const mouseHandleEndInteract = (e) => {
+        if(document.activeElement !== e.currentTarget){
+            handleEndInteract(e);
+        }
+    };
+    const clickReviewDotHandle = (el) => {
+        el.tabIndex = -1;
+        el.removeEventListener("mouseenter", handleInteract);
+        el.removeEventListener("focus", handleInteract);
+        el.removeEventListener("mouseleave", mouseHandleEndInteract);
+        el.removeEventListener("blur", handleEndInteract);
+        el.classList.remove("_intrct");
+        reviewsDotsContainer.classList.remove("_hide-active");
+
+        const oldReviewsCurrentDot = document.querySelector(".swiper-pagination-bullet._active");
+        oldReviewsCurrentDot.tabIndex = 0;
+        oldReviewsCurrentDot.addEventListener("mouseenter", handleInteract);
+        oldReviewsCurrentDot.addEventListener("focus", handleInteract);
+        oldReviewsCurrentDot.addEventListener("mouseleave", mouseHandleEndInteract);
+        oldReviewsCurrentDot.addEventListener("blur", handleEndInteract);
+
+        oldReviewsCurrentDot.classList.remove("_active");
+        el.classList.add("_active");
+    };
 
     const reviewsSlides = document.querySelectorAll(".reviews .swiper-slide");
     new Swiper(".reviews__slider", {
@@ -261,36 +296,65 @@ window.onload = () => {
             el: ".reviews__dots",
             clickable: true
         },
-        mousewheel:{
-            sensivity: 1,
+        on: {
+            slideChange: function () {
+                const activeDot = document.querySelector(".swiper-pagination-bullet-active");
+                if (activeDot) clickReviewDotHandle(activeDot);
+            }
         }
     });
 
-    const reviewsDotsContainer = document.querySelector(".reviews__dots");
     const reviewsDots = document.querySelectorAll(".swiper-pagination-bullet:not(.swiper-pagination-bullet-active)");
-    
-    console.log(reviewsDots, reviewsDotsContainer);
+    const reviewsCurrentDot = document.querySelector(".swiper-pagination-bullet-active");
+    if(reviewsCurrentDot){
+        reviewsCurrentDot.tabIndex = -1;
+        reviewsCurrentDot.classList.add("_active");
+    }
     if(reviewsDots && reviewsDotsContainer){
-        reviewsDots.forEach(reviewDot => {
-            reviewDot.addEventListener("mouseenter", () => {
-                reviewDot.classList.add("_intrct");
-                reviewsDotsContainer.classList.add("_hide-active");
+        reviewsDots.forEach(reviewsDot => {
+            reviewsDot.addEventListener("mouseenter", handleInteract);
+            reviewsDot.addEventListener("focus", handleInteract);
+            reviewsDot.addEventListener("mouseleave", mouseHandleEndInteract);
+            reviewsDot.addEventListener("blur", handleEndInteract);
+        });
+    }
+    
+    const footerColumns = document.querySelectorAll(".column-footer");
+    const footerLists = document.querySelectorAll(".column-footer__list");
+    const footerListOpeners = document.querySelectorAll(".column-footer__title button");
+    if(footerColumns.length && isSmallerEqual480px){
+        if(footerLists.length && footerListOpeners.length){
+            const footerListsHeight = Array.from(footerLists, el => el.offsetHeight);
+            footerLists.forEach(footerList => {
+                footerList.style.height = "0px";
+            })
+            footerListOpeners.forEach((footerListOpener, i) => {
+                footerListOpener.addEventListener("click", () => {
+                    footerColumns[i].classList.toggle("_active");
+                    if(footerColumns[i].classList.contains("_active")){
+                        footerLists[i].style.height = footerListsHeight[i] + "px";
+                    } else {
+                        footerLists[i].style.height = "0px";
+                    }
+                });
+            });
 
-            });
-            reviewDot.addEventListener("focus", () => {
-                reviewDot.classList.add("_intrct");
-                reviewsDotsContainer.classList.add("_hide-active");
-            });
-            reviewDot.addEventListener("mouseleave", () => {
-                if(document.activeElement !== reviewDot){
-                    reviewDot.classList.remove("_intrct");
-                    reviewsDotsContainer.classList.remove("_hide-active");
+            footerColumns.forEach((_, i) => {
+                const footerFirstLink = document.querySelector(".column-footer:nth-child(" + Number(i + 1) + ") .column-footer__link:first-child a");
+                const footerEndLink = document.querySelector(".column-footer:nth-child(" + Number(i + 1) + ") .column-footer__link:last-child a");
+                if(footerFirstLink){
+                    footerFirstLink.addEventListener("focus", () => {
+                        footerColumns[i].classList.add("_active");
+                        footerLists[i].style.height = footerListsHeight[i] + "px";
+                    });
+                }
+                if(footerEndLink){
+                    footerEndLink.addEventListener("blur", () => {
+                        footerColumns[i].classList.remove("_active");
+                        footerLists[i].style.height = "0px";
+                    });
                 }
             });
-            reviewDot.addEventListener("blur", () => {
-                reviewDot.classList.remove("_intrct");
-                reviewsDotsContainer.classList.remove("_hide-active");
-            });
-        });
+        }
     }
 };

@@ -1,0 +1,266 @@
+@use "../service/vars.scss" as vars;
+
+.contact{
+    padding: vars.toRem(100) 0 vars.toRem(92);
+    @media (max-width: vars.toEm(992, 16)) {
+        padding: vars.toRem(96) 0 vars.toRem(92);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        padding: vars.toRem(64) 0;
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        padding: vars.toRem(42) 0;
+    }
+    background-color: #fff;
+
+    @media (min-width: vars.toEm(769, 16)) {
+        .container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        &__info{        
+            margin-right: vars.toRem(30);
+            flex: 0 0 vars.toPercent(630, vars.$container);
+        }
+        @media (max-width: vars.toEm(992, 16)) {
+            &__info{
+                margin-right: vars.toRem(24);
+            }
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__info{
+            margin-bottom: vars.toRem(32);
+        }
+    }
+
+    &__supheading{
+        line-height: vars.toEm(22, 16);
+    }
+    
+    &__heading{
+        color: vars.$black;
+        font-family: Avant;
+        font-size: vars.toRem(34);
+        font-weight: 500;
+        line-height: vars.toEm(44, 34);
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__heading{
+            font-size: vars.toRem(30);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__heading{
+            font-size: vars.toRem(26);
+        }
+    }
+
+    &__description{
+        color: vars.$lightGrayBlue;
+        font-family: Inter;
+        font-size: vars.toRem(16);
+        font-weight: 400;
+        line-height: vars.toEm(24, 16);
+
+        margin: vars.toRem(16) 0 vars.toRem(24);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__description{
+            margin: vars.toRem(16) 0;
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__description{
+            margin: vars.toRem(10) 0;
+        }
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        &__list{
+            max-width: vars.toRem(254);
+        }
+    }
+
+    &__link._not-wrap a{
+        white-space: nowrap;
+    }
+    &__link{
+        display: inline-flex;
+        position: relative;
+        a{
+            color: vars.$lightGrayBlue;
+            font-family: Inter;
+            font-size: vars.toRem(14);
+            font-weight: 500;
+            line-height: vars.toEm(17, 14);
+            &::after{
+                content: "";
+                background-color: vars.$darkestBlue;
+    
+                position: absolute;
+                left: 50%;
+                bottom: vars.toRem(-2);
+                transform: translateX(-50%) translateY(100%);
+    
+                width: 0;
+                height: vars.toRem(3);
+    
+                transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s width;
+            }
+        }
+        &::before{
+            flex: 0 0 vars.toRem(16);
+            height: vars.toRem(16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: vars.toRem(12);
+
+            color: vars.$darkestBlue;
+        }
+    }
+    &__link a:focus-within::after{
+        width: 100%;
+    }
+    @media (any-hover: hover) {
+        &__link a:hover::after{
+            width: 100%;
+        }
+    }
+    &__link:not(:last-child){
+        margin-bottom: vars.toRem(24);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__link:not(:last-child){
+            margin-bottom: vars.toRem(16);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__link:not(:last-child){
+            margin-bottom: vars.toRem(10);
+        }
+    }
+
+    &__form{
+        border-radius: vars.toRem(10);
+        background-color: vars.$darkestBlue;
+
+        flex: 0 0 vars.toPercent(620, vars.$container);
+        padding: vars.toRem(60) vars.toRem(80);
+    }
+    @media (max-width: vars.toEm(vars.$containerPadding, 16)) {
+        &__form{
+            padding: vars.toRem(46) vars.toRem(64);
+        }
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__form{
+            padding: vars.toRem(32) vars.toRem(46);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__form{
+            padding: vars.toRem(24) vars.toRem(32);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__form{
+            padding: vars.toRem(24);
+        }
+    }
+
+    @media (min-width: vars.toEm(769, 16)) {
+        &__fieldsets{
+            max-width: vars.toRem(400);
+        }
+    }
+    &__fieldsets{
+        margin-bottom: vars.toRem(64);
+    }
+    @media (max-width: vars.toEm(vars.$containerPadding, 16)) {
+        &__fieldsets{
+            margin-bottom: vars.toRem(46);
+        }
+    }
+    @media (max-width: vars.toEm(992, 16)) {
+        &__fieldsets{
+            margin-bottom: vars.toRem(32);
+        }
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__fieldsets{
+            margin-bottom: vars.toRem(24);
+        }
+    }
+    @media (max-width: vars.toEm(480, 16)) {
+        &__fieldsets{
+            margin-bottom: vars.toRem(16);
+        }
+    }
+
+    &__fieldset:not(:last-child){
+        margin-bottom: vars.toRem(24);
+    }
+
+    &__subinput{
+        color: vars.$mostLighterGray;
+        font-family: Inter;
+        font-size: vars.toRem(14);
+        font-weight: 500;
+        line-height: vars.toEm(24, 14);
+
+        position: relative;
+        z-index: 1;
+    }
+    
+    &__input{
+        position: relative;
+        z-index: 2;
+
+        display: block;
+        width: 100%;
+        min-height: vars.toRem(40);
+        margin-top: vars.toRem(-24);
+
+        color: #fff;
+        font-family: Inter;
+        font-size: vars.toRem(16);
+        font-weight: 600;
+        line-height: vars.toEm(24, 16);
+
+        background-color: unset;
+        border-bottom: vars.toRem(2) solid vars.$mostLighterGray;
+
+        transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s margin-top,
+        cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.3s border-color;
+    }
+    @media (any-hover: hover) {
+        &__input:hover{
+            border-color: #fff;
+            margin-top: 0;
+        }
+    }
+    &__input:focus{
+        border-color: #fff;
+        margin-top: 0;
+    }
+
+    &__submit{
+        font-family: Inter;
+        font-size: vars.toRem(18);
+        line-height: vars.toEm(24, 18);
+
+        padding: vars.toRem(13) vars.toRem(59.5);
+        border-radius: vars.toRem(25);
+    }
+    @media (max-width: vars.toEm(768, 16)) {
+        &__submit{
+            width: 100%;
+        }
+    }
+}

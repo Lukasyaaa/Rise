@@ -42,6 +42,10 @@
         }
     }
 
+    &__supheading{
+        line-height: vars.toEm(28, 16);
+    }
+
     &__slider{
         overflow-x: hidden;
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 48 48"
+   width="48.000000"
+   height="48.000000"
+   fill="none"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="arrow_right-circle.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="16.5625"
+     inkscape:cx="24"
+     inkscape:cy="24"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <path
+     id="Vector"
+     d="m 23.999999,46.927541 c 12.662538,0 22.927544,-10.265005 22.927544,-22.927543 0,-12.662538 -10.265006,-22.927543 -22.927544,-22.927543 -12.662538,0 -22.927544,10.265005 -22.927544,22.927543 0,12.662538 10.265006,22.927543 22.927544,22.927543 z"
+     stroke="#818181"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2.14491" />
+  <path
+     id="path1"
+     d="M 23.999999,33.171016 14.828981,23.999998 23.999999,14.82898"
+     fill-rule="nonzero"
+     stroke="#818181"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2.14491" />
+  <path
+     id="path2"
+     d="M 33.171017,23.999998 H 14.828981"
+     stroke="#818181"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="2.14491" />
+</svg>

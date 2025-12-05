@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 11.5 13.5"
+   width="11.5"
+   height="13.5"
+   fill="none"
+   customFrame="#000000"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="star.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="35.134368"
+     inkscape:cx="4.4258658"
+     inkscape:cy="8.2967196"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     id="Star 9"
+     d="m 7.1205423,3.6046507 c 0.072761,0.2622754 0.3346664,0.4178434 0.5918165,0.3515266 L 10.887092,3.1374614 c 0.479344,-0.1236175 0.816133,0.476448 0.472368,0.8417514 L 9.0828954,6.398457 c -0.184408,0.1959585 -0.184408,0.5070946 0,0.7030531 L 11.35946,9.5207135 c 0.343765,0.365294 0.007,0.9653885 -0.472368,0.8417715 L 7.7123588,9.5437595 c -0.2571501,-0.06631 -0.5190552,0.08925 -0.5918165,0.351547 L 6.2223542,13.133316 c -0.1356193,0.488911 -0.8091178,0.488911 -0.9447371,0 L 4.379429,9.8953065 C 4.3066677,9.6330105 4.0447625,9.4774525 3.7876125,9.5437595 L 0.61290853,10.362485 C 0.13353493,10.486102 -0.20321437,9.8860075 0.14053993,9.5207135 L 2.4170558,7.1015101 c 0.1843987,-0.1959585 0.1843987,-0.5070946 0,-0.7030531 L 0.14053993,3.9792128 C -0.20321437,3.6139094 0.13353493,3.0138439 0.61290853,3.1374614 L 3.7876125,3.9561773 c 0.25715,0.066317 0.5190552,-0.089251 0.5918165,-0.3515266 L 5.2776171,0.36669068 c 0.1356193,-0.48892091 0.8091178,-0.48892091 0.9447371,0 z"
+     fill="#f37825"
+     fill-rule="evenodd"
+     style="stroke-width:0.996518" />
+</svg>

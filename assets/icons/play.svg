@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 30 30"
+   width="30.000000"
+   height="30.000000"
+   fill="none"
+   customFrame="#000000"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="play.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="9.3691649"
+     inkscape:cx="-1.2274306"
+     inkscape:cy="21.720186"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <rect
+     id="Rectangle 5"
+     width="30.000000"
+     height="30.000000"
+     x="0.000000"
+     y="0.000000"
+     rx="15.000000"
+     fill="rgb(255,255,255)"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     id="Polygon 1"
+     d="M11.7631 8.25C12.3405 9.25 11.6188 10.5 10.4641 10.5L3.5359 10.5C2.3812 10.5 1.65951 9.25 2.23686 8.25L5.70096 2.25C6.27831 1.25 7.72169 1.25 8.29904 2.25L11.7631 8.25Z"
+     fill="rgb(43,48,59)"
+     fill-rule="evenodd"
+     transform="matrix(-4.37114e-08,1,-1,-4.37114e-08,22,8)" />
+</svg>
